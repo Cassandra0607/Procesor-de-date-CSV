@@ -25,7 +25,7 @@ def histogram(rows, col, bins=10, width=40):
         counts[idx] += 1
 
     maxc = max(counts)
-    print(f"Histogramă pentru '{col}' (n={len(vals)}, bins={bins})")
+    print(f"Histograma pentru '{col}' (n={len(vals)}, bins={bins})")
     for i, c in enumerate(counts):
         lo = mn + i * bin_size
         hi = lo + bin_size
