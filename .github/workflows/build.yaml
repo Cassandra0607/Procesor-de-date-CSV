@@ -13,59 +13,59 @@ jobs:
         python-version: ["3.10", "3.11", "3.12"]
 
     steps:
-      - name: Checkout repo
+      - name: Preluare repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Instalare Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Show Python version
+      - name: Afisare versiune Python
         shell: pwsh
         run: python --version
 
-      - name: Compile all python files
+      - name: Verificare fisiere Python (compilare)
         shell: pwsh
         run: python -m compileall -q .
 
-      - name: Run basic command (no options)
+      - name: Test simplu (citire fisier)
         shell: pwsh
         run: python src/main.py data/test.csv
 
-      - name: Stats test
+      - name: Test statistici
         shell: pwsh
         run: python src/main.py data/test.csv --stats Pret
 
-      - name: Filter AND test
+      - name: Test filtrare AND
         shell: pwsh
         run: python src/main.py data/test.csv --filter "Pret>100 AND Categorie='Electronice'"
 
-      - name: Groupby test
+      - name: Test grupare si agregari
         shell: pwsh
         run: python src/main.py data/test.csv --groupby Categorie --agg "avg:Pret,sum:Vanzari,count:Pret"
 
-      - name: Correlation test
+      - name: Test corelatie Pearson
         shell: pwsh
         run: python src/main.py data/test.csv --correlation Pret Vanzari
 
-      - name: Histogram test
+      - name: Test histograma
         shell: pwsh
         run: python src/main.py data/test.csv --plot histogram Varsta
 
-      - name: Clean + Export test
+      - name: Test curatare valori lipsa si export in data/
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path data | Out-Null
           python src/main.py data/test.csv --clean missing --fill mean --output data/clean.csv
           if (!(Test-Path "data/clean.csv")) { throw "data/clean.csv nu a fost creat" }
 
-docker-build:
-  runs-on: ubuntu-latest
-  needs: test-windows
-  steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: test-windows
 
-    - name: Docker build
-      run: docker build -t Procesor-de-date-CSV .
+    steps:
+      - name: Preluare repository
+        uses: actions/checkout@v4
+
+      - name: Build imagine Docker
+        run: docker build -t Procesor-de-date-CSV .
