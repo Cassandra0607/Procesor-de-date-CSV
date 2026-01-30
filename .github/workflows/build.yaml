@@ -60,13 +60,12 @@ jobs:
           python src/main.py data/test.csv --clean missing --fill mean --output data/clean.csv
           if (!(Test-Path "data/clean.csv")) { throw "data/clean.csv nu a fost creat" }
 
-  docker-build:
-    runs-on: windows-latest
-    needs: test-windows
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+docker-build:
+  runs-on: ubuntu-latest
+  needs: test-windows
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
 
-      - name: Docker build (optional)
-        shell: pwsh
-        run: docker build -t csv-processor .
+    - name: Docker build
+      run: docker build -t Procesor-de-date-CSV .
