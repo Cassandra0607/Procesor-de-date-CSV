@@ -44,9 +44,9 @@ python src/main.py data/test.csv --sort Pret,Vanzari
 python src/main.py data/test.csv --groupby Categorie --agg "avg:Pret,sum:Vanzari,count:Pret"
 python src/main.py data/test.csv --correlation Pret Vanzari
 python src/main.py data/test.csv --plot histogram Varsta
-python src/main.py data/test.csv --clean missing --fill mean --output export/clean.csv
-python src/main.py data/test.csv --filter "Pret>100" --output export/filtered.csv
-python src/main.py data/test.csv --clean missing --fill mean --filter "Pret>100 AND Categorie='Electronice'" --sort Pret --output export/final.csv
+python src/main.py data/test.csv --clean missing --fill mean --output data/clean.csv
+python src/main.py data/test.csv --filter "Pret>100" --output data/filtered.csv
+python src/main.py data/test.csv --clean missing --fill mean --filter "Pret>100 AND Categorie='Electronice'" --sort Pret --output data/final.csv
 
 Functionalitati implementate:
 [x] Citire CSV cu detectarea automata a delimitatorului
@@ -79,7 +79,6 @@ project/
 │   └── exporter.py
 ├── data/
 │   └── test.csv
-└── export/
     └── (aici se genereaza fisierele de output)
 
 Decizie de design:
@@ -105,7 +104,7 @@ python src/main.py data/test.csv --sort Pret
 python src/main.py data/test.csv --groupby Categorie --agg "avg:Pret,sum:Vanzari,count:Pret"
 python src/main.py data/test.csv --correlation Pret Vanzari
 python src/main.py data/test.csv --plot histogram Varsta
-python src/main.py data/test.csv --clean missing --fill mean --output export/clean.csv
+python src/main.py data/test.csv --clean missing --fill mean --output data/clean.csv
 
 Comenzi Docker:
 docker build -t csv-processor .
