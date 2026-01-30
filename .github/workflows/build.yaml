@@ -56,9 +56,9 @@ jobs:
       - name: Clean + Export test
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path export | Out-Null
-          python src/main.py data/test.csv --clean missing --fill mean --output export/clean.csv
-          if (!(Test-Path "export/clean.csv")) { throw "export/clean.csv was not created" }
+          New-Item -ItemType Directory -Force -Path data | Out-Null
+          python src/main.py data/test.csv --clean missing --fill mean --output data/clean.csv
+          if (!(Test-Path "data/clean.csv")) { throw "data/clean.csv nu a fost creat" }
 
   docker-build:
     runs-on: windows-latest
