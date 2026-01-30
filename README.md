@@ -107,6 +107,5 @@ python src/main.py data/test.csv --plot histogram Varsta
 python src/main.py data/test.csv --clean missing --fill mean --output data/clean.csv
 
 Comenzi Docker:
-docker build -t csv-processor .
-docker run --rm csv-processor
-docker run --rm csv-processor python src/main.py data/test.csv --stats Pret
+docker run --rm cassi6/procesor-de-date-csv:latest python src/main.py data/test.csv --stats Pret
+
